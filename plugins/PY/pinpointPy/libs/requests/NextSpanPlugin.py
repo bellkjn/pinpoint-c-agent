@@ -33,9 +33,9 @@ class NextSpanPlugin(Common.PinTrace):
         if not root, no trace
         :return:
         '''
-        url = args[0][0]
-        target = urlparse(url).netloc
         kwargs = args[1]
+        url = kwargs['url']
+        target = urlparse(url).netloc
         if "headers" not in kwargs:
             kwargs["headers"] = {}
         if pinpoint.get_context(Defines.PP_HEADER_PINPOINT_SAMPLED) == "s1":
@@ -46,7 +46,7 @@ class NextSpanPlugin(Common.PinTrace):
             return False
 
     def onBefore(self, *args, **kwargs):
-        url = args[0]
+        url = kwargs['url']
         target = urlparse(url).netloc
         super().onBefore(*args, **kwargs)
         ###############################################################
